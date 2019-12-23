@@ -16,7 +16,6 @@ h1 {
 	margin: 50px auto;
 	list-style: none;
 	text-align: center;
-	border: 1px solid black;
 }
 .tilesWrap li {
 	display: inline-block;
