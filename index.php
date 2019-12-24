@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $user['password'])) {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['uid'] =  $user['id'];
                 $result->free();
                 $stmt->close();
                 header("Location: main.php");
@@ -51,25 +52,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
     <div class="container">
         <h1>Login</h1>
-        <a href="./registration.php">Registrieren?</a>
-        <p>
-            Bitte melden Sie sich mit Benutzernamen und Passwort an.
-        </p>
+    
         <?php
         // fehlermeldung oder nachricht ausgeben
         if (!empty($message)) {
@@ -78,24 +67,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
         }
         ?>
-        <form action="" method="POST">
-            <div class="form-group">
+        <form action="" method="POST" class="loginform">
+            
                 <label for="email">email *</label>
+                <br>
                 <input type="text" name="email" class="form-control" id="email" value="" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
-            </div>
+                <br>
+                <br>
             <!-- password -->
-            <div class="form-group">
+        
                 <label for="password">Password *</label>
+                <br>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-            </div>
+                <br>
+                <br>
+
             <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
+
             <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
+            <br>
+            <br>
+            <a href="./registration.php">Noch nicht registriert?</a>
         </form>
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+ 
 </body>
 
 </html>
