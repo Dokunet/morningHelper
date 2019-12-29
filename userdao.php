@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+session_regenerate_id(true);
 $usermodel = null;
 
 function selectFromDB($query)
@@ -16,8 +17,8 @@ function selectFromDB($query)
         return null;
     }
 }
-
-list($user) = selectFromDB("SELECT * FROM users WHERE id =". $_SESSION['uid'].";");
+$userid = $_SESSION['uid'];
+list($user) = selectFromDB("SELECT * FROM users WHERE id =". $userid .";");
 
 $usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid = " . $user["id"] . ";");
 

@@ -66,9 +66,6 @@
             print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
             ?>
          </p>
-         <p>
-           7:52 (10) Therwil -> Dornach
-         </p>
        </li>
 
        <li>
@@ -135,8 +132,10 @@
             echo "<br>";
             if (isset($usermodel[6])) {
               $response = getConnection($usermodel[6]['start'], $usermodel[6]['destination'], $usermodel[6]['time']);
-              print_r($response['connections'][0]['from']);
-              print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+              if (!isset($response['error'])) {
+                print_r($response['connections'][0]['from']);
+                print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+              }
             }
             ?>
          </p>
