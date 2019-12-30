@@ -1,6 +1,5 @@
 <?php
-session_start();
-session_regenerate_id(true);
+
 $usermodel = null;
 
 function selectFromDB($query)
