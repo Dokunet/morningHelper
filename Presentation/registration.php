@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->bind_param("sssss", $firstname, $lastname, $email, $username, $hashed_password);
         $stmt->execute();
         $stmt->close();
-        header("Location: index.php");
+        header("Location: ../index.php");
     }
 }
 
