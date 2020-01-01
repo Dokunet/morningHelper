@@ -1,7 +1,7 @@
 <?php
 
 
-include('Persitence/dbconnector.inc.php');
+include('Persistence/dbconnector.inc.php');
 session_start();
 session_regenerate_id(true);
 
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 
 <body>

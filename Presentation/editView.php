@@ -2,7 +2,7 @@
 session_start();
 session_regenerate_id(true);
 if (!isset($_SESSION['loggedin'])) {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 include('../Persistence/userdao.php');
 function dokumentComposer($day, $type, $usermodel)

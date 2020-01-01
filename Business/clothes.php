@@ -1,6 +1,7 @@
 <?php
 
 function getClothingRecommendation($weather){
+    //
     if((int)$weather<7){
         return "warm clothes and a warm Jacket would be adviced";
     } else if((int)$weather<15){
