@@ -1,17 +1,13 @@
 <?php
-
-$mysqli = new mysqli('localhost', 'user', 'P@ssw0rd', 'morningHelper');
-if ($mysqli->connect_error) {
-    die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
-}
+//mysql connection is being established
+include('../Persistence/dbconnector.inc.php');
 $error = $message = '';
 $firstname = $lastname = $email = $username = '';
 
+//allowing only the post methods to be processes
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
 
+// validating all user inputs
     if (isset($_POST['firstname'])) {
         $firstname = trim(htmlspecialchars($_POST['firstname']));
 
@@ -65,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if (empty($error)) {
+        //preparing the query, binding the attributes finally executing the query
         $query = "INSERT INTO users (firstname, lastname, email, username, password)
                    VALUES (?, ?, ?, ?, ?)";
 

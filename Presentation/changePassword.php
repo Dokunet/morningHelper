@@ -1,11 +1,13 @@
 <?php
-
+//a mysql connection is being established
 include('../Persistence/dbconnector.inc.php');
+//the session is being used and therby started
 session_start();
 session_regenerate_id(true);
 
 $error = '';
 $message = '';
+//if condition so the sever only processes post methods becaus of security
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  /*   if (isset($_POST['old_password'])) {
         $old_password = trim($_POST['old_password']);
@@ -15,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $error .= "Geben Sie bitte den Benutzername an.<br />";
     }*/
+    //validation
     if (isset($_POST['password1'])) {
         $password = trim($_POST['password1']);
         if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
@@ -24,7 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error .= "Geben Sie bitte das Passwort an.<br />";
     }
     if (empty($error)) {
+        //saved information of the logged in user are being accuired for the validation of the password
         $query = "SELECT * FROM users WHERE id=?";
+        //query is being prepared, parameters bound and the query executed
         $stmt = $mysqli->prepare($query);
         $uid = $_SESSION['uid'];
         $stmt->bind_param("i", $uid);
@@ -33,30 +38,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
             $old_password = $_POST['old_password'];
-            echo $old_password;
-            echo "<br> test <br>";
-            echo $user['password'];
-            //if (password_verify($old_password, $user['password'])) {
-                echo "success";
+            //verifying if the user typed in his current password correctly
+            if (password_verify($old_password, $user['password'])) {
                 $password1 = $_POST['password1'];
                 $password2 = $_POST['password2'];
+                //verifying if the the new password he wrote is the 2 times the same
                 if($hashed_password1 === $hashed_password2){
+                    //the new password is being hashed and saved to the databse
                     $hashed_new_password = password_hash($password1, PASSWORD_DEFAULT);
                     $query = "UPDATE users SET password=? WHERE id = ?";
                     $stmt = $mysqli->prepare($query);
                     $uid = $_SESSION['uid'];
                     $stmt->bind_param("si", $hashed_new_password, $uid);
                     $stmt->execute();
+                    //user is being redirected to the main page
                     header("Location: main.php");
                 } else {
-                    echo "not so successful";
+                  
                 }
               
-            //} else {
-              //  echo "even less successful";
-            //}
+            } else {
+                
+            }
         } else {
-            echo "well thats shit";
+          
         }
     }
 }
