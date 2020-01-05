@@ -11,6 +11,8 @@ include('./userdao.php');
 // a function which has all the parameter which are contained in the usermodel tables, the function is explictly for the updating of existing database tables
 function updateData($query, $weekday, $time, $start, $destination, $userid)
 {
+    //including msqli so a database connection can be established
+    include('dbconnector.inc.php');
     //query is prepared and parameters are bound and the query is being executed
     $query = $mysqli->prepare($query);
     $query->bind_param("ssssisi", $weekday, $time, $start, $destination, $userid, $weekday, $userid);
@@ -35,6 +37,8 @@ function updateData($query, $weekday, $time, $start, $destination, $userid)
     // a function which has all the parameter which are contained in the usermodel tables, the function is explictly for the inserting of existing database tables
 function writeData($query, $weekday, $time, $start, $destination, $userid)
 {
+    //including msqli so a database connection can be established
+    include('dbconnector.inc.php');
     //query is prepared and parameters are bound and the query is being executed
     $query = $mysqli->prepare($query);
     echo $mysqli->error;

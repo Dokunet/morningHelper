@@ -1,11 +1,11 @@
 <?php
 
 $usermodel = null;
-// the mysql connection is being included
-include('dbconnector.inc.php');
 
 function selectFromDB($query, $id)
 {
+    // the mysql connection is being included
+    include('dbconnector.inc.php');
     //a select query is being prepared and the the $id parameter is being bound to the 'where' condition
     $query = $mysqli->prepare($query);
     $query->bind_param("s", $id);
