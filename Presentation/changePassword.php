@@ -9,14 +9,6 @@ $error = '';
 $message = '';
 //if condition so the sever only processes post methods becaus of security
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
- /*   if (isset($_POST['old_password'])) {
-        $old_password = trim($_POST['old_password']);
-        if (empty($old_password)) {
-            $error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
-        }
-    } else {
-        $error .= "Geben Sie bitte den Benutzername an.<br />";
-    }*/
     //validation
     if (isset($_POST['password1'])) {
         $password = trim($_POST['password1']);

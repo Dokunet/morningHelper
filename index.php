@@ -13,18 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //checking if the text field email is not empty, so 
     if (isset($_POST['email'])) {
         $email = trim($_POST['email']);
-        if (empty($email)) {
-            $error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
-        }
     } else {
-        $error .= "Geben Sie bitte den Benutzername an.<br />";
+        $error .= "Geben Sie bitte eine Emailadresse an.<br />";
     }
     //checking if the password field is empty or not
     if (isset($_POST['password'])) {
         $password = trim($_POST['password']);
-        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
-            $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
-        }
     } else {
         $error .= "Geben Sie bitte das Passwort an.<br />";
     }
@@ -48,6 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->close();
                 //if the user did type in the correct password he is being reidrected to the main page
                 header("Location: Presentation/main.php");
+            }
+            else{
+                echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"background-color: white\">Passwort oder Emailadresse sind nicht korrekt</div>";
             }
         }
     }
@@ -81,14 +78,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                 <label for="email">email *</label>
                 <br>
-                <input type="text" name="email" class="form-control" id="email" value="" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
+                <input type="text" name="email" class="form-control" id="email" value=""  maxlength="30" required="true">
                 <br>
                 <br>
             <!-- password -->
         
                 <label for="password">Password *</label>
                 <br>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
+                <input type="password" name="password" class="form-control" id="password"  maxlength="255" required="true">
                 <br>
                 <br>
 
@@ -97,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
             <br>
             <br>
-            <a href="./registration.php">Noch nicht registriert?</a>
+            <a href="./Presentation/registration.php">Noch nicht registriert?</a>
         </form>
     </div>
  
