@@ -25,6 +25,6 @@ $userid = $_SESSION['uid'];
 //the function above is called a query and the userid are being send to the function, the query asks for the user table
 list($user) = selectFromDB("SELECT * FROM users WHERE id =?", $userid);
 //a second call is being made but this time the Connections and their day and time are being selected
-$usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid =?", $user["id"] );
+$usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid =?", $user["id"]);
 
 global $usermodel;

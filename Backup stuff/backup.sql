@@ -1,13 +1,13 @@
--- MariaDB dump 10.17  Distrib 10.4.8-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.37-MariaDB, for Win32 (AMD64)
 --
 -- Host: localhost    Database: morningHelper
 -- ------------------------------------------------------
--- Server version	10.4.8-MariaDB
+-- Server version	10.1.37-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -18,7 +18,7 @@
 --
 -- Table structure for table `testuser`
 --
-use morningHelper;
+
 DROP TABLE IF EXISTS `testuser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -55,7 +55,7 @@ CREATE TABLE `usermodel` (
   `destination` varchar(250) NOT NULL,
   `userid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `usermodel` (
 
 LOCK TABLES `usermodel` WRITE;
 /*!40000 ALTER TABLE `usermodel` DISABLE KEYS */;
-INSERT INTO `usermodel` VALUES (1,'Monday','00:00:00','test','Dorenbach',1),(2,'Tuesday','10:00:00','Therwil, Zentrum','Muttenz, Kriegacker',1),(3,'Wednesday','07:15:00','Therwil, Zentrum','Muttenz, Kriegacker',1),(4,'Thursday','09:00:00','Therwil, Zentrum','Basel, Münchensteinerstrasse',1),(5,'Friday','09:00:00','Therwil, Zentrum','Basel, Münchensteinerstrasse',1),(85,'Monday','00:00:00','Ettingen, Dorf','Dorenbach',3),(86,'Tuesday','00:00:00','Oberwil, Zentrum','Muttenz, Dorf',3),(87,'Wednesday','00:00:00','Therwil, Zentrum','Heuwaage',3),(88,'Thursday','00:00:00','Rodersdorf','Dornach',3),(89,'Friday','00:00:00','Oberwil, Zentrum','Dornach',3),(90,'Saturday','00:00:00','Therwil, Zentrum','Basel SBB',3),(91,'Sunday','00:00:00','Muttenz, Dorf','Pratteln, Lachmatt',3),(92,'Monday','00:00:00','Ettingen, Dorf','Dorenbach',4),(93,'Tuesday','00:00:00','Oberwil, Zentrum','Muttenz, Dorf',4),(94,'Wednesday','00:00:00','Therwil, Zentrum','Heuwaage',4),(95,'Thursday','00:00:00','Rodersdorf','Dornach',4),(96,'Friday','00:00:00','Oberwil, Zentrum','Dornach',4),(97,'Saturday','00:00:00','','',4),(98,'Sunday','00:00:00','','',4);
+INSERT INTO `usermodel` VALUES (1,'Monday','09:00:00','','',1),(2,'Tuesday','20:00:00','Therwil, Zentrum','MÃ¼nchenstein, Dorf',1),(3,'Wednesday','07:15:00','Therwil, Zentrum','Muttenz, Kriegacker',1),(4,'Thursday','09:00:00','Therwil, Zentrum','Basel, MÃ¼nchensteinerstrasse',1),(5,'Friday','09:00:00','Therwil, Zentrum','Basel, MÃ¼nchensteinerstrasse',1),(85,'Monday','00:00:00','Oberwil, Zentrum','Dorenbach',3),(86,'Tuesday','00:00:00','Oberwil, Zentrum','Muttenz, Dorf',3),(87,'Wednesday','00:00:00','Therwil, Zentrum','Heuwaage',3),(88,'Thursday','00:00:00','Rodersdorf','Dornach',3),(89,'Friday','00:00:00','Oberwil, Zentrum','Dornach',3),(90,'Saturday','00:00:00','Therwil, Zentrum','Basel SBB',3),(91,'Sunday','00:00:00','Muttenz, Dorf','Pratteln, Lachmatt',3),(92,'Monday','00:00:00','Ettingen, Dorf','Dorenbach',4),(93,'Tuesday','00:00:00','Oberwil, Zentrum','Muttenz, Dorf',4),(94,'Wednesday','00:00:00','Therwil, Zentrum','Heuwaage',4),(95,'Thursday','00:00:00','Rodersdorf','Dornach',4),(96,'Friday','00:00:00','Oberwil, Zentrum','Dornach',4),(97,'Saturday','00:00:00','','',4),(98,'Sunday','00:00:00','','',4),(99,'Saturday','09:00:00','','',1),(100,'Sunday','09:00:00','','',1),(101,'Monday','00:00:00','','',5),(102,'Tuesday','00:00:00','','',5),(103,'Wednesday','00:00:00','','',5),(104,'Thursday','00:00:00','','',5),(105,'Friday','00:00:00','','',5),(106,'Saturday','00:00:00','','',5),(107,'Sunday','00:00:00','','',5);
 /*!40000 ALTER TABLE `usermodel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +83,7 @@ CREATE TABLE `users` (
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Dominik','Luder','d0kun3t@gmail.com','Dokunet','$2y$10$2i69p5i3djznmt6Qdj9a/.wIr2qH58tLb262tzuDWbDhZAkGW.ijW'),(3,'Max','Mustermann','Max@Mustermann.ch','MaxMustermann','$2y$10$3ByC.XZbjFVkwP40F6Vh0eG54VWJXgTWnRSejE3/NUXkD0Whxiq26'),(4,'Dominik','Luder','tes@mail.com','TestUser','$2y$10$TMkPaeDyC8.8EmbOo9LwheAqCairUWIAbEp0IYnwcYyghgYh6rixu');
+INSERT INTO `users` VALUES (1,'Dominik','Luder','d0kun3t@gmail.com','Dokunet','$2y$10$fXqQhMPf45OrvZaSZDo2fePCASRe1THCTja21I5C6HU4dLDVITrs6'),(3,'Max','Mustermann','Max@Mustermann.ch','MaxMustermann','$2y$10$pgOmpMvoFDFhrml./ViLFOzxo9/qz7eT0og4tuBXxSi2y6i1WAMH2'),(4,'Dominik','Luder','tes@mail.com','TestUser','$2y$10$TMkPaeDyC8.8EmbOo9LwheAqCairUWIAbEp0IYnwcYyghgYh6rixu'),(5,'Dominik','Luder','test@test.ch','TestTest','$2y$10$gi4ihlwYf6p9K.bC4MRPDeKLiSY8c/7BoakHhWYTBBqMKhKZEVv8K'),(6,'Dominik','Luder','test2@test.ch','Tester','$2y$10$ZBFtfkbqNp45vCKOmu8NFOx/essSpRsJm/Lr9LONceAea2csBb7FS');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -105,4 +105,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-30 16:40:12
+-- Dump completed on 2020-01-06 22:26:49

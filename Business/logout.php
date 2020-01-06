@@ -15,4 +15,3 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 //the User is being redirected to the Login Page
 header("Location: ../index.php");
-?>

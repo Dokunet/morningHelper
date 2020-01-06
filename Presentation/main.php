@@ -22,7 +22,7 @@
   function weatherComposer($currentDay, $day)
   {
     //checking if the the given date is the todays date, because the api doesnt provide data about weather predictions
-    if (date('l') == $currentDay && !$day['start']==null) {
+    if (date('l') == $currentDay && !$day['start'] == null) {
       $weather = getWeather($day['start']);
       //the temperatur and weather alongside the output of another function where the clothing recommendations are given, are being returned
       return $weather[0] . " " . $weather[1] . "<br> <br>" . getClothingRecommendation($weather[1]);
@@ -47,12 +47,12 @@
  <body>
    <h1>Morning Helper</h1>
    <div class="dropdown">
-  <button class="dropbtn">Account</button>
-  <div class="dropdown-content">
-    <a href="../Business/logout.php">log out</a>
-    <a href="changePassword.php">change password</a>
-  </div>
-</div>
+     <button class="dropbtn">Account</button>
+     <div class="dropdown-content">
+       <a href="../Business/logout.php">log out</a>
+       <a href="changePassword.php">change password</a>
+     </div>
+   </div>
    <div id="list5">
      <ul class="tilesWrap">
        <li>
@@ -60,15 +60,15 @@
          <h3><?php echo $weekdays['Monday'] ?></h3>
          <p>
            <?php
-           if (isset($usermodel[4])) {
-           echo weatherComposer('Monday', $usermodel[0]);
-            echo "<br>";
-            echo "<br>";
-            $response = getConnection($usermodel[0]['start'], $usermodel[0]['destination'], $usermodel[0]['time']);
-            print_r($response['connections'][0]['from']);
-            print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
-           }
-           ?>
+            if (isset($usermodel[4])) {
+              echo weatherComposer('Monday', $usermodel[0]);
+              echo "<br>";
+              echo "<br>";
+              $response = getConnection($usermodel[0]['start'], $usermodel[0]['destination'], $usermodel[0]['time']);
+              print_r($response['connections'][0]['from']);
+              print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+            }
+            ?>
 
          </p>
        </li>
@@ -77,15 +77,15 @@
          <h3><?php echo $weekdays['Tuesday'] ?></h3>
          <p>
            <?php
-           if (isset($usermodel[1])) {
-            echo weatherComposer('Tuesday', $usermodel[1]);
-            echo "<br>";
-            echo "<br>";
-            $response = getConnection($usermodel[1]['start'], $usermodel[1]['destination'], $usermodel[1]['time']);
-            print_r($response['connections'][0]['from']);
-            print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
-           }
-           ?>
+            if (isset($usermodel[1])) {
+              echo weatherComposer('Tuesday', $usermodel[1]);
+              echo "<br>";
+              echo "<br>";
+              $response = getConnection($usermodel[1]['start'], $usermodel[1]['destination'], $usermodel[1]['time']);
+              print_r($response['connections'][0]['from']);
+              print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+            }
+            ?>
          </p>
        </li>
 
@@ -94,15 +94,15 @@
          <h3><?php echo $weekdays['Wednesday'] ?></h3>
          <p>
            <?php
-           if (isset($usermodel[2])) {
-            echo weatherComposer('Wednesday',  $usermodel[2]);
-            echo "<br>";
-            echo "<br>";
-            $response = getConnection($usermodel[2]['start'], $usermodel[2]['destination'], $usermodel[2]['time']);
-            print_r($response['connections'][0]['from']);
-            print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
-           }
-           ?>
+            if (isset($usermodel[2])) {
+              echo weatherComposer('Wednesday',  $usermodel[2]);
+              echo "<br>";
+              echo "<br>";
+              $response = getConnection($usermodel[2]['start'], $usermodel[2]['destination'], $usermodel[2]['time']);
+              print_r($response['connections'][0]['from']);
+              print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+            }
+            ?>
          </p>
        </li>
        <li>
@@ -110,13 +110,13 @@
          <h3><?php echo $weekdays['Thursday'] ?></h3>
          <p>
            <?php echo weatherComposer('Thursday', $usermodel[3]);
-           if (isset($usermodel[3])) {
-            echo "<br>";
-            echo "<br>";
-            $response = getConnection($usermodel[3]['start'], $usermodel[3]['destination'], $usermodel[3]['time']);
-            print_r($response['connections'][0]['from']);
-            print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
-         }
+            if (isset($usermodel[3])) {
+              echo "<br>";
+              echo "<br>";
+              $response = getConnection($usermodel[3]['start'], $usermodel[3]['destination'], $usermodel[3]['time']);
+              print_r($response['connections'][0]['from']);
+              print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+            }
             ?>
          </p>
        </li>
@@ -125,15 +125,15 @@
          <h2>Freitag</h2>
          <h3><?php echo $weekdays['Friday'] ?></h3>
          <p>
-           <?php 
-           if (isset($usermodel[4])) {
-           echo weatherComposer('Friday',  $usermodel[4]);
-            echo "<br>";
-            echo "<br>";
-            $response = getConnection($usermodel[4]['start'], $usermodel[4]['destination'], $usermodel[4]['time']);
-            print_r($response['connections'][0]['from']);
-            print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
-           }
+           <?php
+            if (isset($usermodel[4])) {
+              echo weatherComposer('Friday',  $usermodel[4]);
+              echo "<br>";
+              echo "<br>";
+              $response = getConnection($usermodel[4]['start'], $usermodel[4]['destination'], $usermodel[4]['time']);
+              print_r($response['connections'][0]['from']);
+              print_r(substr_replace($response['connections'][0]['departure'], "", 0, 10));
+            }
             ?>
          </p>
        </li>
@@ -141,7 +141,7 @@
          <h2>Samstag</h2>
          <h3><?php echo $weekdays['Saturday'] ?></h3>
          <p>
-           <?php 
+           <?php
             if (isset($usermodel[5])) {
               echo weatherComposer('Saturday', $usermodel[5]);
               echo "<br>";
@@ -157,7 +157,7 @@
          <h2>Sonntag</h2>
          <h3><?php echo $weekdays['Sunday'] ?></h3>
          <p>
-           <?php 
+           <?php
             if (isset($usermodel[6])) {
               echo weatherComposer('Sunday', $usermodel[6]);
               echo "<br>";

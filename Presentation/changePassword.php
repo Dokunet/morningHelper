@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $password1 = $_POST['password1'];
                 $password2 = $_POST['password2'];
                 //verifying if the the new password he wrote is the 2 times the same
-                if($hashed_password1 === $hashed_password2){
+                if (strcmp($password1, $password2) == 0) {
                     //the new password is being hashed and saved to the databse
                     $hashed_new_password = password_hash($password1, PASSWORD_DEFAULT);
                     $query = "UPDATE users SET password=? WHERE id = ?";
@@ -46,15 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //user is being redirected to the main page
                     header("Location: main.php");
                 } else {
-                  
+                    echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">the 2 new passwords are not the same</div>";
                 }
-              
             } else {
-                
+                echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">password not correct</div>";
             }
-        } else {
-          
-        }
+        } 
     }
 }
 ?>
@@ -67,13 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
 
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
 </head>
 
 <body>
     <div class="container">
         <h1>change password</h1>
-    
+
         <?php
         // fehlermeldung oder nachricht ausgeben
         if (!empty($message)) {
@@ -83,35 +80,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
 
-        <form action="" method="POST">
-            
-                <label for="email">old password *</label>
-                <br>
-                <input type="password" name="old_password" class="form-control" id="email" value="" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" title="Gross- und Keinbuchstaben, min 6 Zeichen." pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" maxlength="255" required="true">
-                <br>
-                <br>
+        <form action="" method="POST" class="loginform">
+
+            <label for="email">old password *</label>
+            <br>
+            <input type="password" name="old_password" class="form-control" id="old_password" value="" placeholder="old password..." maxlength="255" required="true">
+            <br>
+            <br>
             <!-- password -->
-        
-                <label for="password">Password *</label>
-                <br>
-                <input type="password" name="password1" class="form-control" id="password1" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-                <br>
-                <br>
-                <label for="password2">Password *</label>
-                <br>
-                <input type="password" name="password2" class="form-control" id="password2" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-                <br>
-                <br>
 
-            <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
-
-            <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
+            <label for="password">Password *</label>
+            <br>
+            <input type="password" name="password1" class="form-control" id="password1" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
             <br>
             <br>
-    
+            <label for="password2">Password *</label>
+            <br>
+            <input type="password" name="password2" class="form-control" id="password2" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
+            <br>
+            <br>
+
+            <button type="submit" name="button" value="submit" class="btn btn-info">save</button>
+            <a href="main.php">Back</a>
+            <br>
+            <br>
+
         </form>
     </div>
- 
+
 </body>
 
 </html>

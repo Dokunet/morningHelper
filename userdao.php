@@ -18,7 +18,7 @@ function selectFromDB($query)
     }
 }
 
-list($user) = selectFromDB("SELECT * FROM users WHERE id =". $_SESSION['uid'].";");
+list($user) = selectFromDB("SELECT * FROM users WHERE id =" . $_SESSION['uid'] . ";");
 
 $usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid = " . $user["id"] . ";");
 

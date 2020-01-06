@@ -34,7 +34,7 @@ function updateData($query, $weekday, $time, $start, $destination, $userid)
     }
 }
 
-    // a function which has all the parameter which are contained in the usermodel tables, the function is explictly for the inserting of existing database tables
+// a function which has all the parameter which are contained in the usermodel tables, the function is explictly for the inserting of existing database tables
 function writeData($query, $weekday, $time, $start, $destination, $userid)
 {
     //including msqli so a database connection can be established
@@ -75,7 +75,7 @@ for ($i = 0; $i < 21; $i += 3) {
     //the weekdays are only seven which is why the steps of 3 is being divded by 3 so an iteration of the weekdays is also passible
     $weekday = $i / 3;
     //a select statment is bein written so the connection of a day of the corresponding user is being returned
-    $usermodel1 = selectFromDB("SELECT * FROM usermodel WHERE day= '".$weekdays[$weekday]."' AND userid=?", $userid);
+    $usermodel1 = selectFromDB("SELECT * FROM usermodel WHERE day= '" . $weekdays[$weekday] . "' AND userid=?", $userid);
     // if the user has already given a connection on this day, is being updated, regardlesslay if he has the same values
     if ($usermodel1 != null) {
         updateData("UPDATE usermodel SET day=?, time=?, start=?, destination=?, userid=? WHERE day=? AND userid=?", $weekdays[$weekday], $databaseParameter[$i + 2], $databaseParameter[$i],  $databaseParameter[$i + 1], $userid);

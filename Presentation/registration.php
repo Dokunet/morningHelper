@@ -7,7 +7,7 @@ $firstname = $lastname = $email = $username = '';
 //allowing only the post methods to be processes
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-// validating all user inputs
+    // validating all user inputs
     if (isset($_POST['firstname'])) {
         $firstname = trim(htmlspecialchars($_POST['firstname']));
 
@@ -87,26 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registrierung</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link rel='stylesheet' href='../style/style.css'>
 </head>
 
 <body>
 
-    <div class="container">
-        <h1>Registrierung</h1>
-        <p>
-            Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
-        </p>
+    <div class="loginform">
+        <h1>Registration</h1>
+      
         <?php
         // Ausgabe der Fehlermeldungen
         if (!empty($error)) {
@@ -117,39 +105,41 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         ?>
         <form action="" method="post">
             <!-- vorname -->
-            <div class="form-group">
-                <label for="firstname">Vorname *</label>
-                <input type="text" name="firstname" class="form-control" id="firstname" value="<?php echo $firstname ?>" placeholder="Geben Sie Ihren Vornamen an." maxlength="30" required="true">
-            </div>
+
+            <label for="firstname">Prename *</label>
+            <input type="text" name="firstname" class="form-control" value="<?php echo $firstname ?>" maxlength="30" required="true">
+
             <!-- nachname -->
-            <div class="form-group">
-                <label for="lastname">Nachname *</label>
-                <input type="text" name="lastname" class="form-control" id="lastname" value="<?php echo $lastname ?>" placeholder="Geben Sie Ihren Nachnamen an" maxlength="30" required="true">
-            </div>
+            <br>
+            <br>
+            <label for="lastname">Lastname *</label>
+            <input type="text" name="lastname" class="form-control" value="<?php echo $lastname ?>"  maxlength="30" required="true">
+
             <!-- email -->
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" name="email" class="form-control" id="email" value="<?php echo $email ?>" placeholder="Geben Sie Ihre Email-Adresse an." maxlength="100" required="true">
-            </div>
+
+            <br>
+            <br>
+            <label for="email">Email *</label>
+            <input type="email" name="email" class="form-control" value="<?php echo $email ?>"  maxlength="100" required="true">
+
             <!-- benutzername -->
-            <div class="form-group">
-                <label for="username">Benutzername *</label>
-                <input type="text" name="username" class="form-control" id="username" value="<?php echo $username ?>" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
-            </div>
+            <br>
+            <br>
+            <label for="username">Username *</label>
+            <input type="text" name="username" class="form-control" value="<?php echo $username ?>"  pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true">
+
             <!-- password -->
-            <div class="form-group">
-                <label for="password">Password *</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-            </div>
-            <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
-            <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
+            <br>
+            <br>
+            <label for="password">Password *</label>
+            <input type="password" name="password" class="form-control" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
+            <br>
+            <br>
+            <button type="submit" name="button" value="submit" class="btn btn-info">save</button>
+            <a href="../index.php">cancel</a>
         </form>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 
 </html>

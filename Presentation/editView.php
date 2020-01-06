@@ -16,7 +16,7 @@ function dokumentComposer($day, $type, $usermodel)
                 return $singlemodel[$type];
             }
         }
-    } else{
+    } else {
         return "";
     }
 }
@@ -28,6 +28,7 @@ function dokumentComposer($day, $type, $usermodel)
     <title>Edit</title>
     <link rel="stylesheet" href="../style/style.css">
 </head>
+
 <body>
     <div id="list5">
         <form action="../Persistence/writeUserModelData.php" method="POST" target="_self">

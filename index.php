@@ -42,10 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->close();
                 //if the user did type in the correct password he is being reidrected to the main page
                 header("Location: Presentation/main.php");
+            } else {
+                echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">Passwort oder Emailadresse sind nicht korrekt</div>";
             }
-            else{
-                echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"background-color: white\">Passwort oder Emailadresse sind nicht korrekt</div>";
-            }
+        } else {
+            echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">Passwort oder Emailadresse sind nicht korrekt</div>";
         }
     }
 }
@@ -65,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <h1>Login</h1>
-    
+
         <?php
         // fehlermeldung oder nachricht ausgeben
         if (!empty($message)) {
@@ -75,19 +76,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
         <form action="" method="POST" class="loginform">
-            
-                <label for="email">email *</label>
-                <br>
-                <input type="text" name="email" class="form-control" id="email" value=""  maxlength="30" required="true">
-                <br>
-                <br>
+
+            <label for="email">email *</label>
+            <br>
+            <input type="text" name="email" class="form-control" id="email" value="" maxlength="30" required="true">
+            <br>
+            <br>
             <!-- password -->
-        
-                <label for="password">Password *</label>
-                <br>
-                <input type="password" name="password" class="form-control" id="password"  maxlength="255" required="true">
-                <br>
-                <br>
+
+            <label for="password">Password *</label>
+            <br>
+            <input type="password" name="password" class="form-control" id="password" maxlength="255" required="true">
+            <br>
+            <br>
 
             <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
 
@@ -97,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="./Presentation/registration.php">Noch nicht registriert?</a>
         </form>
     </div>
- 
+
 </body>
 
 </html>
