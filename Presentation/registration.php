@@ -54,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
             $error .= "Geben Sie bitte einen korrektes Password ein.<br />";
         } else {
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            //salt wird anscheinend automatisch generiert, nice. Es wird jedoch empfohlen nicht default zu verwenden sondern bcrypt
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         }
     } else {
         $error .= "Geben Sie bitte ein Password ein.<br />";
