@@ -28,3 +28,16 @@ list($user) = selectFromDB("SELECT * FROM users WHERE id =?", $userid);
 $usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid =?", $user["id"]);
 
 global $usermodel;
+
+/**
+ * checks if user is admin
+ *
+ * @param int $userId
+ * @return bool
+ */
+function checkAdmin(int $userId): bool
+{
+    $admin = selectFromDB("SELECT admin FROM users WHERE id =?", $userId);
+
+    return (bool)$admin[0]['admin'];
+}

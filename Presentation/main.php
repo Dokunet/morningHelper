@@ -45,13 +45,17 @@
  <body>
  <h1>Morning Helper</h1>
  <div class="dropdown">
-     <button class="adminButton">Admin</button>
      <button class="accountButton">Account</button>
      <div class="dropdown-content">
          <a href="../Business/logout.php">log out</a>
          <a href="changePassword.php">change password</a>
      </div>
  </div>
+ <?php
+ if (checkAdmin($_SESSION['uid'])) {
+     echo "<button class='adminButton'>Admin</button>";
+ }
+ ?>
  <div id="list5">
      <ul class="tilesWrap">
          <li>

@@ -96,7 +96,7 @@ h1 {
     color: white;
     align-content: center;
     width: 30%;
-    margin: 40% auto auto;
+    margin: auto;
 }
 
 .form-group {
@@ -144,6 +144,8 @@ a {
 }
 
 .adminButton {
+    float: right;
+    margin-right: 3%;
     background-color: #be2c2c;
     color: white;
     padding: 16px;
