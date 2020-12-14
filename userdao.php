@@ -5,7 +5,7 @@ $usermodel = null;
 
 function selectFromDB($query)
 {
-    $mysqli = new mysqli('localhost', 'root', '', 'morningHelper');
+    $mysqli = new mysqli('localhost', 'user', 'P@ssw0rd', 'morningHelper');
     $query = $mysqli->prepare($query);
     echo $mysqli->error;
     $query->execute();
