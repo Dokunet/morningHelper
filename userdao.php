@@ -1,5 +1,6 @@
 <?php
 
+
 //usermodel is set to null, so it doesnt save or cache data from previous calls
 $usermodel = null;
 

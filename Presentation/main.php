@@ -2,6 +2,7 @@
   //enabling the session in this file
   session_start();
   session_regenerate_id(true);
+  include('../Business/session_timeout.php');
 
   //including all the necessary files
   include('../Business/dateManager.php');

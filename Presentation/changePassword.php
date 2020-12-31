@@ -4,6 +4,7 @@ include('../Persistence/dbconnector.inc.php');
 //the session is being used and therby started
 session_start();
 session_regenerate_id(true);
+include('../Business/session_timeout.php');
 
 $error = '';
 $message = '';

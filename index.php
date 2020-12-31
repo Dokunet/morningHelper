@@ -6,6 +6,11 @@ include('Persistence/dbconnector.inc.php');
 session_start();
 session_regenerate_id(true);
 
+
+
+include('Business/loggingConfig.php');
+include('Business/session_timeout.php');
+
 $error = '';
 $message = '';
 //establishing that only Post method is accepted, because of security
@@ -33,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
+            //todo: weiss noch nicht ob man das ändern muss, weil es ja noch das klartext passwort ist.
             //if the password is correct the Session gets an attribute which signalizes that the user is is successfully loged in
             if (password_verify($password, $user['password'])) {
                 $_SESSION['loggedin'] = true;
