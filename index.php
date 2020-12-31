@@ -38,9 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
-            //todo: weiss noch nicht ob man das ändern muss, weil es ja noch das klartext passwort ist.
+            //todo: weiss noch nicht ob man das ändern muss, weil es ja noch das klartext passwort ist, jedoch wird bei verify das passwort mit gehasht.
             //if the password is correct the Session gets an attribute which signalizes that the user is is successfully loged in
             if (password_verify($password, $user['password'])) {
+                $old_session = $_SESSION;
+                session_regenerate_id(true);
+                //todo: nicht sicher ob das stimmt, ist die session id dann wieder die alte?
+                $_SESSION = $old_session;
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['uid'] =  $user['id'];
