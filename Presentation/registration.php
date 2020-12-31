@@ -1,6 +1,7 @@
 <?php
 //mysql connection is being established
 include('../Persistence/dbconnector.inc.php');
+include('../Business/loggingConfig.php');
 $error = $message = '';
 $firstname = $lastname = $email = $username = '';
 

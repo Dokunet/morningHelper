@@ -3,6 +3,7 @@
   session_start();
   session_regenerate_id(true);
   include('../Business/session_timeout.php');
+  include('../Business/loggingConfig.php');
 
   //including all the necessary files
   include('../Business/dateManager.php');

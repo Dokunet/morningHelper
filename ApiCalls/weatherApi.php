@@ -1,5 +1,6 @@
 
 <?php
+include('../Business/loggingConfig.php');
 //An api is called where the current weather of the place where the user will start his voyage, is returned
 function getWeather($location)
 {

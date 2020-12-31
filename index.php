@@ -2,6 +2,7 @@
 
 //Database connection is included
 include('Persistence/dbconnector.inc.php');
+include('Business/loggingConfig.php');
 //the session for the login is started
 session_start();
 session_regenerate_id(true);

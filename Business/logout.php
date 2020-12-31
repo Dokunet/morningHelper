@@ -1,4 +1,5 @@
 <?php 
+include('loggingConfig.php');
 // Unset all of the session variables.
 $_SESSION = array();
 

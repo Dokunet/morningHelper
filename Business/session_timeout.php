@@ -1,5 +1,5 @@
 <?php
-
+include('loggingConfig.php');
 //todo: comment
 $session_timeout = 1800; // 1800 Sek./60 Sek. = 30 Minuten
 if (!isset($_SESSION['last_visit'])) {
