@@ -1,14 +1,14 @@
 <?php
 
-use Analog\Logger;
-use Analog\Handler\Variable;
+require dirname(__FILE__).'/../vendor/autoload.php';
 
-$logger = new Logger;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-$log = '';
+// create a log channel
+$log = new Logger('test');
+$log->pushHandler(new StreamHandler('../logs/log.log', Logger::WARNING));
 
-/* $logger->handler (Variable::init ($log));
-
-$logger->alert ('Things are really happening right now!');
-
-var_dump ($log); */
+/* // add records to the log
+$log->warning('Foo');
+$log->error('Bar'); */

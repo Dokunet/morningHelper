@@ -1,5 +1,4 @@
 <?php
-include('../Business/loggingConfig.php');
 //a mysql connection to the localhost s being established
 
 //todo: change to user with less right

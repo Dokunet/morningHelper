@@ -3,13 +3,14 @@
 session_start();
 session_regenerate_id(true);
 include('../Business/session_timeout.php');
-include('../Business/loggingConfig.php');
 if (!isset($_SESSION['loggedin'])) {
     header("Location: ../index.php");
 }
+include('../Business/loggingConfig.php');
 //userdao is being included
 include('../Persistence/userdao.php');
 //function which iterates over all the connections of the user and returns the connection whiich is specified by the parameters
+$log->error('sodhfowsiudhfbgiwsubfd now in editview');
 function dokumentComposer($day, $type, $usermodel)
 {
     if (isset($usermodel)) {
