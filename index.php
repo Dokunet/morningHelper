@@ -4,10 +4,11 @@
 include('Persistence/dbconnector.inc.php');
 include('Business/loggingConfig.php');
 //the session for the login is started
+
+include('Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
 
-include('Business/session_timeout.php');
 $error = '';
 $message = '';
 

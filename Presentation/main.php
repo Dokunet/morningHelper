@@ -1,8 +1,8 @@
  <?php
   //enabling the session in this file
+  include('../Business/session_timeout.php');
   session_start();
   session_regenerate_id(true);
-  include('../Business/session_timeout.php');
 
     //checking if the user is infact logged in
     if (!isset($_SESSION['loggedin'])) {

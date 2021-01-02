@@ -117,3 +117,7 @@
 [2021-01-02T02:25:43.675934+01:00] test.WARNING: Foo [] []
 [2021-01-02T02:25:43.676177+01:00] test.ERROR: Bar [] []
 [2021-01-02T02:29:41.214658+01:00] test.ERROR: sodhfowsiudhfbgiwsubfd now in editview [] []
+[2021-01-02T14:27:59.688666+01:00] test.ERROR: sodhfowsiudhfbgiwsubfd now in editview [] []
+[2021-01-02T14:27:59.718226+01:00] test.ERROR: sodhfowsiudhfbgiwsubfd now in editview [] []
+[2021-01-02T14:29:07.033059+01:00] test.ERROR: sodhfowsiudhfbgiwsubfd now in editview [] []
+[2021-01-02T14:41:44.104195+01:00] test.ERROR: sodhfowsiudhfbgiwsubfd now in editview [] []

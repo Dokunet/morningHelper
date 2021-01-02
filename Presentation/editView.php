@@ -1,8 +1,8 @@
 <?php
 //the session is being used so the user has to be loggedin
+include('../Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
-include('../Business/session_timeout.php');
 if (!isset($_SESSION['loggedin'])) {
     header("Location: ../index.php");
 }
