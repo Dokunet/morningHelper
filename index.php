@@ -1,81 +1,64 @@
 <?php
+//Included necessary files
 include('Persistence/userdao.php');
-//Database connection is included
 include('Persistence/dbconnector.inc.php');
-include('Business/loggingConfig.php');
-//the session for the login is started
 
+//add logging config
+include('Business/loggingConfig.php');
+require __DIR__.'/vendor/autoload.php';
+
+//the session for the login is started
 include('Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
 
+//add needed variables
 $error = '';
 $message = '';
-
-require dirname(__FILE__).'/vendor/autoload.php';
-
-/* use Monolog\Logger;
-use Monolog\Handler\StreamHandler; */
-
-// add records to the log
-$log->warning('bla');
-$log->error('gur');
+$logger = getLogger();
 
 //establishing that only Post method is accepted, because of security
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $log->info('Output to php://stderr');
-    //checking if the text field email is not empty, so 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $logger->info('Login Attempt');
+    $logger->info('Validating Login-Data');
+    //validate email
     if (isset($_POST['email'])) {
-        $log->warning('wow');
         $email = trim($_POST['email']);
     } else {
-        $log->warning('wow');
-
-        $error .= "Geben Sie bitte eine Emailadresse an.<br />";
+        $error .= "Please enter a email address<br />";
     }
-    //checking if the password field is empty or not
+
+    //validate password
     if (isset($_POST['password'])) {
-        $log->warning('wow');
         $password = trim($_POST['password']);
     } else {
-        $log->warning('wow');
-        $error .= "Geben Sie bitte das Passwort an.<br />";
+        $error .= "Please enter a password<br />";
     }
-    //if the previos fields arent empty the login process is being continued
+
+
     if (empty($error)) {
-        //a query is written, prepared, the attributes securly bound to the query and query itself is being executed in the end
-        $log->warning('wow');
-        $query = "SELECT * FROM users WHERE email=?";
-        $stmt = $mysqli->prepare($query);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        //the results are saved and formatted
-        $result = $stmt->get_result();
+        //a query is written, prepared, the attributes securely bound to the query and query itself is being executed in the end
+        $result = executeQueryWithSingleStringParameter("SELECT * FROM users WHERE email=?", $email);
+
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
-            //todo: weiss noch nicht ob man das ändern muss, weil es ja noch das klartext passwort ist, jedoch wird bei verify das passwort mit gehasht.
-            //if the password is correct the Session gets an attribute which signalizes that the user is is successfully loged in
+            var_dump(password_verify($password, $user['password']));
             if (password_verify($password, $user['password'])) {
-                $log->warning('wow');
-                $old_session = $_SESSION;
                 session_regenerate_id(true);
-                //todo: nicht sicher ob das stimmt, ist die session id dann wieder die alte?
-                $_SESSION = $old_session;
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['uid'] = $user['id'];
                 $_SESSION['admin'] = checkAdmin($user['id']);
-                $result->free();
-                $stmt->close();
-                //if the user did type in the correct password he is being reidrected to the main page
+                $logger->info('Login successful');
+
                 header("Location: Presentation/main.php");
             } else {
-                $log->warning('wow');
-                echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">Passwort oder Emailadresse sind nicht korrekt</div>";
+                $logger->warning('Login failed');
+                echo "<div class='alert alert-danger' role='alert' style='color: red'>Login attempt failed</div>";
             }
         } else {
-            $log->warning('wow');
-            echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">Passwort oder Emailadresse sind nicht korrekt</div>";
+            $logger->info('Validation failed');
+            echo "<div class='alert alert-danger' role='alert' style='color: red'>Please check your credentials</div>";
         }
     }
 }
@@ -98,9 +81,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php
     if (!empty($message)) {
-        echo "<div class=\"alert alert-success\" role=\"alert\">".$message."</div>";
+        echo "<div class='alert alert-success' role='alert'>".$message."</div>";
     } elseif (!empty($error)) {
-        echo "<div class=\"alert alert-danger\" role=\"alert\">".$error."</div>";
+        echo "<div class='alert alert-danger' role='alert'>".$error."</div>";
     }
     ?>
     <form action="" method="POST" class="loginform">
