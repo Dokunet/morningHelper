@@ -96,32 +96,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>Login</h1>
 
     <?php
-    // fehlermeldung oder nachricht ausgeben
     if (!empty($message)) {
         echo "<div class=\"alert alert-success\" role=\"alert\">".$message."</div>";
-    } else {
-        if (!empty($error)) {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">".$error."</div>";
-        }
+    } elseif (!empty($error)) {
+        echo "<div class=\"alert alert-danger\" role=\"alert\">".$error."</div>";
     }
     ?>
     <form action="" method="POST" class="loginform">
-
         <label for="email">email *</label>
         <br>
-        <input type="text" name="email" class="form-control" id="email" value="" maxlength="30" required="true">
+        <input type="text" name="email" class="form-control" id="email" value="" maxlength="30" required>
         <br>
         <br>
         <!-- password -->
-
         <label for="password">Password *</label>
         <br>
-        <input type="password" name="password" class="form-control" id="password" maxlength="255" required="true">
+        <input type="password" name="password" class="form-control" id="password" maxlength="255" required>
         <br>
         <br>
-
         <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
-
         <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
         <br>
         <br>
