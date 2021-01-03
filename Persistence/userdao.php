@@ -55,7 +55,7 @@ function getAllUsers(): array
     // the mysql connection is being included
     include('dbconnector.inc.php');
     //a select query is being prepared and the the $id parameter is being bound to the 'where' condition
-    $query = $mysqli->prepare("SELECT * FROM users");
+    $query = $mysqli->prepare("SELECT * FROM users WHERE admin=0");
     echo $mysqli->error;
     //query is being executed and results ar being received
     $query->execute();
@@ -73,12 +73,36 @@ function getAllUsers(): array
  * @param $uId
  * @return array
  */
-function deleteUserModel($uId): array
+function deleteUserModel(int $uId): array
 {
     // the mysql connection is being included
     include('dbconnector.inc.php');
     //a select query is being prepared and the the $id parameter is being bound to the 'where' condition
-    $query = $mysqli->prepare("DELETE * FROM usermodel WHERE userid =?");
+    $query = $mysqli->prepare("DELETE FROM usermodel WHERE userid =?");
+    $query->bind_param("i", $uId);
+    echo $mysqli->error;
+    //query is being executed and results ar being received
+    $query->execute();
+    $result = $query->get_result();
+    if ($result->num_rows) {
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    return [];
+}
+
+/**
+ * delete user model for given user
+ *
+ * @param $uId
+ * @return array
+ */
+function deleteUser(int $uId): array
+{
+    // the mysql connection is being included
+    include('dbconnector.inc.php');
+    //a select query is being prepared and the the $id parameter is being bound to the 'where' condition
+    $query = $mysqli->prepare("DELETE FROM users WHERE id =?");
     $query->bind_param("i", $uId);
     echo $mysqli->error;
     //query is being executed and results ar being received

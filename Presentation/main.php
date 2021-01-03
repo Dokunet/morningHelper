@@ -19,7 +19,7 @@ include('../ApiCalls/commuteApi.php');
 
 include('../Business/loggingConfig.php');
 //checking if the user has already given some input, if not he will be redirected to de editview file where he inputs some data
-if ($usermodel == null) {
+if ($usermodel === null) {
     $logger->info('user has no data put in in the $usermodel therefore he is being redirected to de editView.php');
     header('Location: editView.php');
 }
@@ -58,6 +58,7 @@ function weatherComposer($currentDay, $day)
     <div class="dropdown-content">
         <a href="../Business/logout.php">log out</a>
         <a href="changePassword.php">change password</a>
+        <a href="adminView.php">Admin Area</a>
     </div>
 </div>
 <div id="list5">

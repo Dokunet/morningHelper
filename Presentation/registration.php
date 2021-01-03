@@ -116,10 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     // Ausgabe der Fehlermeldungen
     if (!empty($error)) {
         echo "<div class=\"alert alert-danger\" role=\"alert\">".$error."</div>";
-    } else {
-        if (!empty($message)) {
-            echo "<div class=\"alert alert-success\" role=\"alert\">".$message."</div>";
-        }
+    } elseif (!empty($message)) {
+        echo "<div class=\"alert alert-success\" role=\"alert\">".$message."</div>";
     }
     ?>
     <form action="" method="post">
@@ -127,14 +125,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         <label for="firstname">Prename *</label>
         <input type="text" name="firstname" class="form-control" value="<?php echo $firstname ?>" maxlength="30"
-               required="true">
+               required>
 
         <!-- nachname -->
         <br>
         <br>
         <label for="lastname">Lastname *</label>
         <input type="text" name="lastname" class="form-control" value="<?php echo $lastname ?>" maxlength="30"
-               required="true">
+               required>
 
         <!-- email -->
 
@@ -142,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <br>
         <label for="email">Email *</label>
         <input type="email" name="email" class="form-control" value="<?php echo $email ?>" maxlength="100"
-               required="true">
+               required>
 
         <!-- benutzername -->
         <br>
@@ -150,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <label for="username">Username *</label>
         <input type="text" name="username" class="form-control" value="<?php echo $username ?>"
                pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen."
-               maxlength="30" required="true">
+               maxlength="30" required>
 
         <!-- password -->
         <br>
@@ -159,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <input type="password" name="password" class="form-control"
                pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
-               maxlength="255" required="true">
+               maxlength="255" required>
         <br>
         <br>
         <button type="submit" name="button" value="submit" class="btn btn-info">save</button>

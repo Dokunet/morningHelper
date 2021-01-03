@@ -1,5 +1,5 @@
 <?php
-
+include('Persistence/userdao.php');
 //Database connection is included
 include('Persistence/dbconnector.inc.php');
 include('Business/loggingConfig.php');
@@ -64,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['uid'] = $user['id'];
+                $_SESSION['admin'] = checkAdmin($user['id']);
                 $result->free();
                 $stmt->close();
                 //if the user did type in the correct password he is being reidrected to the main page
