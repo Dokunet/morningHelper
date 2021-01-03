@@ -1,34 +1,41 @@
 <?php
+//Included necessary files
+include('../Persistence/userDao.php');
+
+//add logging config
+include('../Business/loggingConfig.php');
+
 //enabling the session in this file
 include('../Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
-if (!isset($_SESSION['loggedin'])) {
-    header("Location: ../index.php");
+
+//checking if the user is logged in and admin
+if (!isset($_SESSION['loggedIn'])) {
+    header('Location: ../index.php');
 }
+
 if (!$_SESSION['admin']) {
     header("Location: ./main.php");
 }
-//user dao is being included
-include('../Persistence/userDao.php');
 
+
+//add needed variables
+$logger = getLogger();
 $error = '';
 $message = '';
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
+    $logger->info('Validating Admin Action Input');
     if (isset($_POST['id'])) {
-        $log->info('id given');
-        $uId = trim($_POST['id']);
-        if (empty($error)) {
-
-        }
+        $uId = trim(htmlspecialchars($_POST['id']));
 
         deleteUserModel($uId);
         deleteUser($uId);
 
         $message .= "User deleted<br />";
     } else {
-        $log->warning('no user id given when deleting user');
+        $logger->warning('no user id given when deleting user');
         $error .= "Something went wrong please reload the page and try again<br />";
     }
 
@@ -65,7 +72,7 @@ if (!empty($message)) {
             <th id="email">Delete</th>
         </tr>
         <?php
-        $users = getAllUsers();
+        $users = getAllNonAdminUsers();
         foreach ($users as $user) {
             echo "<tr>";
             echo "<td>".$user['username']."</td>";

@@ -65,7 +65,11 @@ function weatherComposer($currentDay, $day)
     <div class="dropdown-content">
         <a href="../Business/logout.php">log out</a>
         <a href="changePassword.php">change password</a>
-        <a href="adminView.php">Admin Area</a>
+        <?php
+        if ($_SESSION['admin']) {
+            echo '<a href="adminView.php">Admin Area</a>';
+        }
+        ?>
     </div>
 </div>
 <div id="list5">

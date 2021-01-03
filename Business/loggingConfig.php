@@ -5,13 +5,6 @@ require __DIR__.'/../vendor/autoload.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-// create a log channel
-$log = new Logger('test');
-$log->pushHandler(new StreamHandler('../logs/log.log', Logger::WARNING));
-/* // add records to the log
-$log->warning('Foo');
-$log->error('Bar'); */
-
 /**
  * create logger and set verbosity level
  *
@@ -20,7 +13,7 @@ $log->error('Bar'); */
 function getLogger(): Logger
 {
     $logger = new Logger('logger');
-    $logger->pushHandler(new StreamHandler('../logs/log.log', Logger::INFO));
+    $logger->pushHandler(new StreamHandler('../logs/log.log', Logger::EMERGENCY));
 
     return $logger;
 }

@@ -1,23 +1,29 @@
 <?php
-//mysql connection is being established
-include('../Persistence/dbconnector.inc.php');
-include('../Business/loggingConfig.php');
+//Included necessary files
+include('../Persistence/userDao.php');
+
+//add logging config
+include('Business/loggingConfig.php');
+
+//enabling the session in this file
+include('Business/session_timeout.php');
+session_start();
+session_regenerate_id(true);
+
+//add needed variables
 $error = $message = '';
 $firstname = $lastname = $email = $username = '';
 
 //allowing only the post methods to be processes
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $logger->info('user is trying to create an account');
     // validating all user inputs
     if (isset($_POST['firstname'])) {
         $firstname = trim(htmlspecialchars($_POST['firstname']));
 
         if (empty($firstname) || strlen($firstname) > 30) {
-            $logger->alert('entered firstname by the user does not match the requirements');
             $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
         }
     } else {
-        $logger->alert('user has not entered a firstname');
         $error .= "Geben Sie bitte einen Vornamen ein.<br />";
     }
 
@@ -25,11 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $lastname = trim(htmlspecialchars($_POST['lastname']));
 
         if (empty($lastname) || strlen($lastname) > 30) {
-            $logger->alert('entered lastname by the user does not match the requirements');
             $error .= "Geben Sie bitte einen korrekten Nachname ein.<br />";
         }
     } else {
-        $logger->alert('user has not entered a lastname');
         $error .= "Geben Sie bitte einen Nachname ein.<br />";
     }
 
@@ -37,11 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $email = trim($_POST['email']);
 
         if (empty($email) || strlen($email) > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-            $logger->alert('entered email by the user does not match the requirements');
             $error .= "Geben Sie bitte eine korrekten Emailadresse ein.<br />";
         }
     } else {
-        $logger->alert('user has not entered an emailaddress');
         $error .= "Geben Sie bitte eine Emailadresse ein.<br />";
     }
 
@@ -49,11 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $username = trim($_POST['username']);
 
         if (empty($username) || !preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,30}/", $username)) {
-            $logger->alert('entered username by the user does not match the requirements');
             $error .= "Geben Sie bitte einen korrekten Usernamen ein.<br />";
         }
     } else {
-        $logger->alert('user has not entered an username');
         $error .= "Geben Sie bitte einen Username ein.<br />";
     }
 
@@ -64,31 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 "/(?=^.{8,255}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/",
                 $password
             )) {
-            $logger->alert('entered password by the user does not match the requirements');
             $error .= "Geben Sie bitte einen korrektes Password ein.<br />";
         } else {
             //salt wird anscheinend automatisch generiert, nice. Es wird jedoch empfohlen nicht default zu verwenden sondern bcrypt
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         }
     } else {
-        $logger->alert('user has not entered a password');
         $error .= "Geben Sie bitte ein Password ein.<br />";
     }
 
     if (empty($error)) {
-        $logger->info('loginform is entered correctly');
         //preparing the query, binding the attributes finally executing the query
-        $logger->info('statement is created and user is inserted in to the database');
-        $query = "INSERT INTO users (firstname, lastname, email, username, password, admin)
-                   VALUES (?, ?, ?, ?, ?, 0)";
-
-        $stmt = $mysqli->prepare($query);
-        if ($stmt === false) {
-            echo $mysqli->error;
-        }
-        $stmt->bind_param("sssss", $firstname, $lastname, $email, $username, $hashed_password);
-        $stmt->execute();
-        $stmt->close();
+        createUser($firstname, $lastname, $email, $username, $hashed_password);
         header("Location: ../index.php");
     }
 }

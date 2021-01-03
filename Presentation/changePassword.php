@@ -1,7 +1,7 @@
 <?php
 include('../Business/loggingConfig.php');
 //a mysql connection is being established
-include('../Persistence/dbconnector.inc.php');
+include('../Persistence/userDao.php');
 //the session is being used and therby started
 include('../Business/session_timeout.php');
 session_start();
@@ -25,13 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (empty($error)) {
         //saved information of the logged in user are being accuired for the validation of the password
-        $query = "SELECT * FROM users WHERE id=?";
-        //query is being prepared, parameters bound and the query executed
-        $stmt = $mysqli->prepare($query);
-        $uid = $_SESSION['uid'];
-        $stmt->bind_param("i", $uid);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $result = executeQueryWithSingleStringParameter("SELECT * FROM users WHERE id=?", $_SESSION['uid']);
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
             $old_password = $_POST['old_password'];
@@ -43,11 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (strcmp($password1, $password2) == 0) {
                     //the new password is being hashed and saved to the databse
                     $hashed_new_password = password_hash($password1, PASSWORD_DEFAULT);
-                    $query = "UPDATE users SET password=? WHERE id = ?";
-                    $stmt = $mysqli->prepare($query);
-                    $uid = $_SESSION['uid'];
-                    $stmt->bind_param("si", $hashed_new_password, $uid);
-                    $stmt->execute();
+                    updatePassword($hashed_new_password, $uid);
+                    getLogger()->info('updated password');
                     //user is being redirected to the main page
                     header("Location: main.php");
                 } else {
@@ -92,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="email">old password *</label>
         <br>
         <input type="password" name="old_password" class="form-control" id="old_password" value=""
-               placeholder="old password..." maxlength="255" required="true">
+               placeholder="old password..." maxlength="255" required>
         <br>
         <br>
         <!-- password -->
@@ -103,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
                pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
-               maxlength="255" required="true">
+               maxlength="255" required>
         <br>
         <br>
         <label for="password2">Password *</label>
@@ -112,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
                pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
-               maxlength="255" required="true">
+               maxlength="255" required>
         <br>
         <br>
 
