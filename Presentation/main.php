@@ -20,7 +20,6 @@ if (!isset($_SESSION['loggedIn'])) {
     header('Location: ../index.php');
 }
 
-
 //add needed variables
 $weekdays = getWeekdays();
 $userModel = getActiveUserModel();

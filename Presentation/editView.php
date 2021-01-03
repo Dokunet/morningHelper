@@ -1,22 +1,40 @@
 <?php
-//the session is being used so the user has to be loggedin
+//Included necessary files
+include('../Persistence/userDao.php');
+
+//add logging config
+include('../Business/loggingConfig.php');
+
+//enabling the session in this file
 include('../Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
-if (!isset($_SESSION['loggedin'])) {
-    header("Location: ../index.php");
+
+//checking if the user is logged in
+if (!isset($_SESSION['loggedIn'])) {
+    header('Location: ../index.php');
 }
-include('../Business/loggingConfig.php');
-//userdao is being included
-include('../Persistence/userDao.php');
-//function which iterates over all the connections of the user and returns the connection whiich is specified by the parameters
-$log->error('yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-function dokumentComposer($day, $type, $usermodel)
+
+//add needed variables
+$logger = getLogger();
+$userModel = getActiveUserModel();
+$logger->info('Opened editing view');
+
+
+/**
+ * iterates over all the connections of the user and returns the connection which is specified by the parameters
+ *
+ * @param $day
+ * @param $type
+ * @param $userModel
+ * @return string
+ */
+function documentComposer($day, $type, $userModel): string
 {
-    if (isset($usermodel)) {
-        foreach ($usermodel as &$singlemodel) {
-            if ($singlemodel['day'] == $day) {
-                return $singlemodel[$type];
+    if (isset($userModel)) {
+        foreach ($userModel as $model) {
+            if ($model['day'] === $day) {
+                return $model[$type];
             }
         }
     } else {
@@ -43,15 +61,15 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="MondayStart"
-                           value="<?php echo dokumentComposer('Monday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Monday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="MondayDestination"
-                           value="<?php echo dokumentComposer('Monday', 'destination', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Monday', 'destination', $userModel) ?>" maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="MondayTime"
-                           value="<?php echo dokumentComposer('Monday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Monday', 'time', $userModel) ?>">
                 </p>
             </li>
             <li>
@@ -60,15 +78,15 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="TuesdayStart"
-                           value="<?php echo dokumentComposer('Tuesday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Tuesday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="TuesdayDestination"
-                           value="<?php echo dokumentComposer('Tuesday', 'destination', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Tuesday', 'destination', $userModel) ?>" maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="TueasdyTime"
-                           value="<?php echo dokumentComposer('Tuesday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Tuesday', 'time', $userModel) ?>">
                 </p>
             </li>
 
@@ -78,16 +96,16 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="WednesdayStart"
-                           value="<?php echo dokumentComposer('Wednesday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Wednesday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="WednesdayDestination"
-                           value="<?php echo dokumentComposer('Wednesday', 'destination', $usermodel) ?>"
+                           value="<?php echo documentComposer('Wednesday', 'destination', $userModel) ?>"
                            maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="WednesdayTime"
-                           value="<?php echo dokumentComposer('Wednesday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Wednesday', 'time', $userModel) ?>">
                 </p>
             </li>
             <li>
@@ -96,16 +114,16 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="ThursdayStart"
-                           value="<?php echo dokumentComposer('Thursday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Thursday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="ThursdayDestination"
-                           value="<?php echo dokumentComposer('Thursday', 'destination', $usermodel) ?>"
+                           value="<?php echo documentComposer('Thursday', 'destination', $userModel) ?>"
                            maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="ThursdayTime"
-                           value="<?php echo dokumentComposer('Thursday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Thursday', 'time', $userModel) ?>">
                 </p>
             </li>
             <br>
@@ -115,15 +133,15 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="FridayStart"
-                           value="<?php echo dokumentComposer('Friday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Friday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="FridayDestination"
-                           value="<?php echo dokumentComposer('Friday', 'destination', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Friday', 'destination', $userModel) ?>" maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="FridayTime"
-                           value="<?php echo dokumentComposer('Friday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Friday', 'time', $userModel) ?>">
                 </p>
             </li>
             <li>
@@ -132,16 +150,16 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="SaturdayStart"
-                           value="<?php echo dokumentComposer('Saturday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Saturday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="SaturdayDestination"
-                           value="<?php echo dokumentComposer('Saturday', 'destination', $usermodel) ?>"
+                           value="<?php echo documentComposer('Saturday', 'destination', $userModel) ?>"
                            maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="SaturdayTime"
-                           value="<?php echo dokumentComposer('Saturday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Saturday', 'time', $userModel) ?>">
                 </p>
             </li>
             <li>
@@ -150,15 +168,15 @@ function dokumentComposer($day, $type, $usermodel)
                 <p>
                     Abfahrtsort
                     <input type="text" name="SundayStart"
-                           value="<?php echo dokumentComposer('Sunday', 'start', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Sunday', 'start', $userModel) ?>" maxlength="250">
                     Ankunftsort
                     <input type="text" name="SundayDestination"
-                           value="<?php echo dokumentComposer('Sunday', 'destination', $usermodel) ?>" maxlength="250">
+                           value="<?php echo documentComposer('Sunday', 'destination', $userModel) ?>" maxlength="250">
                     <br>
                     <br>
                     Ankunftszeit
                     <input type="time" name="SundayTime"
-                           value="<?php echo dokumentComposer('Sunday', 'time', $usermodel) ?>">
+                           value="<?php echo documentComposer('Sunday', 'time', $userModel) ?>">
                 </p>
             </li>
         </ul>
