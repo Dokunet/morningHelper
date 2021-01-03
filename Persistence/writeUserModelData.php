@@ -25,6 +25,7 @@ function updateData($query, $weekday, $time, $start, $destination, $userid)
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
             $result->close();
+
             return $user;
         } else {
             return null;
@@ -50,6 +51,7 @@ function writeData($query, $weekday, $time, $start, $destination, $userid)
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
             $result->close();
+
             return $user;
         } else {
             return null;
@@ -76,14 +78,28 @@ for ($i = 0; $i < 21; $i += 3) {
     //the weekdays are only seven which is why the steps of 3 is being divded by 3 so an iteration of the weekdays is also passible
     $weekday = $i / 3;
     //a select statment is bein written so the connection of a day of the corresponding user is being returned
-    $usermodel1 = selectFromDB("SELECT * FROM usermodel WHERE day= '" . $weekdays[$weekday] . "' AND userid=?", $userid);
+    $usermodel1 = selectFromDB("SELECT * FROM usermodel WHERE day= '".$weekdays[$weekday]."' AND userid=?", $userid);
     // if the user has already given a connection on this day, is being updated, regardlesslay if he has the same values
     if ($usermodel1 != null) {
-        updateData("UPDATE usermodel SET day=?, time=?, start=?, destination=?, userid=? WHERE day=? AND userid=?", $weekdays[$weekday], $databaseParameter[$i + 2], $databaseParameter[$i],  $databaseParameter[$i + 1], $userid);
+        updateData(
+            "UPDATE usermodel SET day=?, time=?, start=?, destination=?, userid=? WHERE day=? AND userid=?",
+            $weekdays[$weekday],
+            $databaseParameter[$i + 2],
+            $databaseParameter[$i],
+            $databaseParameter[$i + 1],
+            $userid
+        );
     } //if the user has not already written a connections a new table is set
     else {
-        writeData("INSERT INTO usermodel (day, time, start, destination, userid)
-        VALUES (?,?,?,?,?);", $weekdays[$weekday], $databaseParameter[$i + 2], $databaseParameter[$i],  $databaseParameter[$i + 1], $userid);
+        writeData(
+            "INSERT INTO usermodel (day, time, start, destination, userid)
+        VALUES (?,?,?,?,?);",
+            $weekdays[$weekday],
+            $databaseParameter[$i + 2],
+            $databaseParameter[$i],
+            $databaseParameter[$i + 1],
+            $userid
+        );
     }
 }
 //after everything is written in to the database the user is bein redirected to the main page

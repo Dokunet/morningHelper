@@ -23,7 +23,7 @@ $log->error('gur');
 
 //establishing that only Post method is accepted, because of security
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-   $log->info ('Output to php://stderr');
+    $log->info('Output to php://stderr');
     //checking if the text field email is not empty, so 
     if (isset($_POST['email'])) {
         $log->warning('wow');
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION = $old_session;
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $user['username'];
-                $_SESSION['uid'] =  $user['id'];
+                $_SESSION['uid'] = $user['id'];
                 $result->free();
                 $stmt->close();
                 //if the user did type in the correct password he is being reidrected to the main page
@@ -92,40 +92,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="container">
-        <h1>Login</h1>
+<div class="container">
+    <h1>Login</h1>
 
-        <?php
-        // fehlermeldung oder nachricht ausgeben
-        if (!empty($message)) {
-            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-        } else if (!empty($error)) {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+    <?php
+    // fehlermeldung oder nachricht ausgeben
+    if (!empty($message)) {
+        echo "<div class=\"alert alert-success\" role=\"alert\">".$message."</div>";
+    } else {
+        if (!empty($error)) {
+            echo "<div class=\"alert alert-danger\" role=\"alert\">".$error."</div>";
         }
-        ?>
-        <form action="" method="POST" class="loginform">
+    }
+    ?>
+    <form action="" method="POST" class="loginform">
 
-            <label for="email">email *</label>
-            <br>
-            <input type="text" name="email" class="form-control" id="email" value="" maxlength="30" required="true">
-            <br>
-            <br>
-            <!-- password -->
+        <label for="email">email *</label>
+        <br>
+        <input type="text" name="email" class="form-control" id="email" value="" maxlength="30" required="true">
+        <br>
+        <br>
+        <!-- password -->
 
-            <label for="password">Password *</label>
-            <br>
-            <input type="password" name="password" class="form-control" id="password" maxlength="255" required="true">
-            <br>
-            <br>
+        <label for="password">Password *</label>
+        <br>
+        <input type="password" name="password" class="form-control" id="password" maxlength="255" required="true">
+        <br>
+        <br>
 
-            <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
+        <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
 
-            <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
-            <br>
-            <br>
-            <a href="./Presentation/registration.php">Noch nicht registriert?</a>
-        </form>
-    </div>
+        <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
+        <br>
+        <br>
+        <a href="./Presentation/registration.php">Noch nicht registriert?</a>
+    </form>
+</div>
 
 </body>
 

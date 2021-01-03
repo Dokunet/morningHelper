@@ -1,9 +1,9 @@
 <?php
 
-require dirname(__FILE__).'/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 // create a log channel
 $log = new Logger('test');

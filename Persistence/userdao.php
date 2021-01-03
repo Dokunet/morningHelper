@@ -16,11 +16,13 @@ function selectFromDB($query, $id)
     $result = $query->get_result();
     if ($result->num_rows) {
         $user = $result->fetch_all(MYSQLI_ASSOC);
+
         return $user;
     } else {
         return null;
     }
 }
+
 // the id which is being set to the session in the loggin page is being sent to the function
 $userid = $_SESSION['uid'];
 //the function above is called a query and the userid are being send to the function, the query asks for the user table
@@ -42,3 +44,50 @@ function checkAdmin(int $userId): bool
 
     return (bool)$admin[0]['admin'];
 }
+
+/**
+ * fetch all users
+ *
+ * @return array
+ */
+function getAllUsers(): array
+{
+    // the mysql connection is being included
+    include('dbconnector.inc.php');
+    //a select query is being prepared and the the $id parameter is being bound to the 'where' condition
+    $query = $mysqli->prepare("SELECT * FROM users");
+    echo $mysqli->error;
+    //query is being executed and results ar being received
+    $query->execute();
+    $result = $query->get_result();
+    if ($result->num_rows) {
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    return [];
+}
+
+/**
+ * delete user model for given user
+ *
+ * @param $uId
+ * @return array
+ */
+function deleteUserModel($uId): array
+{
+    // the mysql connection is being included
+    include('dbconnector.inc.php');
+    //a select query is being prepared and the the $id parameter is being bound to the 'where' condition
+    $query = $mysqli->prepare("DELETE * FROM usermodel WHERE userid =?");
+    $query->bind_param("i", $uId);
+    echo $mysqli->error;
+    //query is being executed and results ar being received
+    $query->execute();
+    $result = $query->get_result();
+    if ($result->num_rows) {
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    return [];
+}
+

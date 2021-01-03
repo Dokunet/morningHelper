@@ -185,3 +185,22 @@ a {
 .dropdown:hover .accountButton {
     background-color: #3e8e41;
 }
+
+.userTable {
+    font-size: 16pt;
+    color: white;
+    align-content: center;
+    width: 30%;
+    margin: 5% auto auto;
+    border-collapse: collapse;
+}
+
+.userTable td{
+    border: 1px solid #1a1c1c;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #373d3e;
+}

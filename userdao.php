@@ -13,14 +13,16 @@ function selectFromDB($query)
     $result = $query->get_result();
     if ($result->num_rows) {
         $user = $result->fetch_all(MYSQLI_ASSOC);
+
         return $user;
     } else {
         return null;
     }
 }
-$logger->info ('user entry is selected');
-list($user) = selectFromDB("SELECT * FROM users WHERE id =" . $_SESSION['uid'] . ";");
-$logger->info ('usermodel is selected');
-$usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid = " . $user["id"] . ";");
+
+$logger->info('user entry is selected');
+list($user) = selectFromDB("SELECT * FROM users WHERE id =".$_SESSION['uid'].";");
+$logger->info('usermodel is selected');
+$usermodel = selectFromDB("SELECT * FROM usermodel WHERE userid = ".$user["id"].";");
 
 global $usermodel;

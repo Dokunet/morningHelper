@@ -14,7 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //validation
     if (isset($_POST['password1'])) {
         $password = trim($_POST['password1']);
-        if (empty($password) || !preg_match("/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)) {
+        if (empty($password) || !preg_match(
+                "/(?=^.{8,255}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/",
+                $password
+            )) {
             $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
         }
     } else {
@@ -53,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "<div class=\"alert alert-danger\" role=\"alert\" style=\"color: red\">password not correct</div>";
             }
-        } 
+        }
     }
 }
 ?>
@@ -70,45 +73,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="container">
-        <h1>change password</h1>
+<div class="container">
+    <h1>change password</h1>
 
-        <?php
-        // fehlermeldung oder nachricht ausgeben
-        if (!empty($message)) {
-            echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-        } else if (!empty($error)) {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+    <?php
+    // fehlermeldung oder nachricht ausgeben
+    if (!empty($message)) {
+        echo "<div class=\"alert alert-success\" role=\"alert\">".$message."</div>";
+    } else {
+        if (!empty($error)) {
+            echo "<div class=\"alert alert-danger\" role=\"alert\">".$error."</div>";
         }
-        ?>
+    }
+    ?>
 
-        <form action="" method="POST" class="loginform">
+    <form action="" method="POST" class="loginform">
 
-            <label for="email">old password *</label>
-            <br>
-            <input type="password" name="old_password" class="form-control" id="old_password" value="" placeholder="old password..." maxlength="255" required="true">
-            <br>
-            <br>
-            <!-- password -->
+        <label for="email">old password *</label>
+        <br>
+        <input type="password" name="old_password" class="form-control" id="old_password" value=""
+               placeholder="old password..." maxlength="255" required="true">
+        <br>
+        <br>
+        <!-- password -->
 
-            <label for="password">Password *</label>
-            <br>
-            <input type="password" name="password1" class="form-control" id="password1" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-            <br>
-            <br>
-            <label for="password2">Password *</label>
-            <br>
-            <input type="password" name="password2" class="form-control" id="password2" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." maxlength="255" required="true">
-            <br>
-            <br>
+        <label for="password">Password *</label>
+        <br>
+        <input type="password" name="password1" class="form-control" id="password1"
+               placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
+               pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
+               maxlength="255" required="true">
+        <br>
+        <br>
+        <label for="password2">Password *</label>
+        <br>
+        <input type="password" name="password2" class="form-control" id="password2"
+               placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
+               pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
+               maxlength="255" required="true">
+        <br>
+        <br>
 
-            <button type="submit" name="button" value="submit" class="btn btn-info">save</button>
-            <a href="main.php">Back</a>
-            <br>
-            <br>
+        <button type="submit" name="button" value="submit" class="btn btn-info">save</button>
+        <a href="main.php">Back</a>
+        <br>
+        <br>
 
-        </form>
-    </div>
+    </form>
+</div>
 
 </body>
 
