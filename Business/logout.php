@@ -3,7 +3,7 @@ include('loggingConfig.php');
 // Unset all of the session variables.
 $_SESSION = array();
 
-//Session Cookie is being deleted so the user is correctly and completly loggedout
+//Session Cookie is being deleted so the user is correctly and completely logged
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(
@@ -19,5 +19,6 @@ if (ini_get("session.use_cookies")) {
 
 // The Session is being destroyed
 session_destroy();
+
 //the User is being redirected to the Login Page
 header("Location: ../index.php");
