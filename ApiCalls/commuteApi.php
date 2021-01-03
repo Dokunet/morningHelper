@@ -1,5 +1,4 @@
 <?php
-include('../Business/loggingConfig.php');
 function getConnection($start, $destination, $time)
 {
     //an API is being called where with the parameters $start, $destination and $time a early connection is being sorted out

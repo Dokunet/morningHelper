@@ -1,13 +1,12 @@
 <?php
 //Included necessary files
-include('Persistence/userdao.php');
-include('Persistence/dbconnector.inc.php');
+include('Persistence/userDao.php');
 
 //add logging config
 include('Business/loggingConfig.php');
 require __DIR__.'/vendor/autoload.php';
 
-//the session for the login is started
+//enabling the session in this file
 include('Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
@@ -42,10 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if ($result->num_rows) {
             $user = $result->fetch_assoc();
-            var_dump(password_verify($password, $user['password']));
             if (password_verify($password, $user['password'])) {
                 session_regenerate_id(true);
-                $_SESSION['loggedin'] = true;
+                $_SESSION['loggedIn'] = true;
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['uid'] = $user['id'];
                 $_SESSION['admin'] = checkAdmin($user['id']);

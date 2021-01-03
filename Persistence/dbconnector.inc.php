@@ -15,5 +15,13 @@ if ($mysqli->connect_error) {
  */
 function getMySqlI($username = 'user', $password = 'P@ssw0rd'): mysqli
 {
-    return new mysqli('localhost', $username, $password, 'morningHelper');
+
+    $connection = new mysqli('localhost', $username, $password, 'morningHelper');
+
+    if ($connection->connect_error) {
+        die('Connect Error ('.$connection->connect_errno.') '.$connection->connect_error);
+    }
+
+    return $connection;
+
 }

@@ -1,5 +1,4 @@
 <?php
-include('loggingConfig.php');
 function getClothingRecommendation($weather)
 {
     // its being checked what temperature the weather has and according to that a recommendation regarding clothing is being given

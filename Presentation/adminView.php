@@ -10,7 +10,7 @@ if (!$_SESSION['admin']) {
     header("Location: ./main.php");
 }
 //user dao is being included
-include('../Persistence/userdao.php');
+include('../Persistence/userDao.php');
 
 $error = '';
 $message = '';

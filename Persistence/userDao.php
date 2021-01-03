@@ -1,7 +1,6 @@
 <?php
-
-$usermodel = null;
-include('../Business/loggingConfig.php');
+//$usermodel = null;
+include('dbconnector.inc.php');
 /**
  * get user model for user based on session id
  *

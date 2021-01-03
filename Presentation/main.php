@@ -1,41 +1,49 @@
 <?php
+//Included necessary files
+include('../Persistence/userDao.php');
+include('Persistence/dbconnector.inc.php');
+include('../Business/dateManager.php');
+include('../Business/clothes.php');
+include('../ApiCalls/weatherApi.php');
+include('../ApiCalls/commuteApi.php');
+
+//add logging config
+include('../Business/loggingConfig.php');
+
 //enabling the session in this file
 include('../Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
 
-//checking if the user is infact logged in
-if (!isset($_SESSION['loggedin'])) {
+//checking if the user is logged in
+if (!isset($_SESSION['loggedIn'])) {
     header('Location: ../index.php');
 }
 
-//including all the necessary files
-include('../Business/dateManager.php');
-include('../Business/clothes.php');
-include('../ApiCalls/weatherApi.php');
-include('../Persistence/userdao.php');
-include('../ApiCalls/commuteApi.php');
 
+//add needed variables
+$weekdays = getWeekdays();
+$userModel = getActiveUserModel();
+$logger = getLogger();
 
-include('../Business/loggingConfig.php');
-//checking if the user has already given some input, if not he will be redirected to de editview file where he inputs some data
-if ($usermodel === null) {
-    $logger->info('user has no data put in in the $usermodel therefore he is being redirected to de editView.php');
+//checking if the user has already given some input, if not he will be redirected to the editView file where he inputs some data
+if ($userModel === null) {
     header('Location: editView.php');
 }
+
 //calling a function which in response returns information about the current weather
 function weatherComposer($currentDay, $day)
 {
     //checking if the the given date is the todays date, because the api doesnt provide data about weather predictions
-    if (date('l') == $currentDay && !$day['start'] == null) {
+    if (date('l') === $currentDay && $day['start'] !== null) {
         $weather = getWeather($day['start']);
 
-        //the temperatur and weather alongside the output of another function where the clothing recommendations are given, are being returned
+        //the temperature and weather alongside the output of another function where the clothing recommendations are given, are being returned
         return $weather[0]." ".$weather[1]."<br> <br>".getClothingRecommendation($weather[1]);
-    } else {
-        //if the date is not todays date a "-" is returned and outputed to indicate that there are no informations yet available
-        return '-';
     }
+
+    //if the date is not today's date a "-" is returned and outputted to indicate that there are no information yet available
+    return '-';
 }
 
 ?>
@@ -68,14 +76,14 @@ function weatherComposer($currentDay, $day)
             <h3><?php echo htmlspecialchars($weekdays['Monday']) ?></h3>
             <p>
                 <?php
-                if (isset($usermodel[4])) {
-                    echo htmlspecialchars(weatherComposer('Monday', $usermodel[0]));
+                if (isset($userModel[4])) {
+                    echo htmlspecialchars(weatherComposer('Monday', $userModel[0]));
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[0]['start'],
-                        $usermodel[0]['destination'],
-                        $usermodel[0]['time']
+                        $userModel[0]['start'],
+                        $userModel[0]['destination'],
+                        $userModel[0]['time']
                     );
                     print_r(htmlspecialchars($response['connections'][0]['from']));
                     print_r(htmlspecialchars(substr_replace($response['connections'][0]['departure'], "", 0, 10)));
@@ -89,14 +97,14 @@ function weatherComposer($currentDay, $day)
             <h3><?php echo htmlspecialchars($weekdays['Tuesday']) ?></h3>
             <p>
                 <?php
-                if (isset($usermodel[1])) {
-                    echo htmlspecialchars(weatherComposer('Tuesday', $usermodel[1]));
+                if (isset($userModel[1])) {
+                    echo htmlspecialchars(weatherComposer('Tuesday', $userModel[1]));
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[1]['start'],
-                        $usermodel[1]['destination'],
-                        $usermodel[1]['time']
+                        $userModel[1]['start'],
+                        $userModel[1]['destination'],
+                        $userModel[1]['time']
                     );
                     print_r(htmlspecialchars($response['connections'][0]['from']));
                     print_r(htmlspecialchars(substr_replace($response['connections'][0]['departure'], "", 0, 10)));
@@ -110,14 +118,14 @@ function weatherComposer($currentDay, $day)
             <h3><?php echo htmlspecialchars($weekdays['Wednesday']) ?></h3>
             <p>
                 <?php
-                if (isset($usermodel[2])) {
-                    echo htmlspecialchars(weatherComposer('Wednesday', $usermodel[2]));
+                if (isset($userModel[2])) {
+                    echo htmlspecialchars(weatherComposer('Wednesday', $userModel[2]));
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[2]['start'],
-                        $usermodel[2]['destination'],
-                        $usermodel[2]['time']
+                        $userModel[2]['start'],
+                        $userModel[2]['destination'],
+                        $userModel[2]['time']
                     );
                     print_r(htmlspecialchars($response['connections'][0]['from']));
                     print_r(htmlspecialchars(substr_replace($response['connections'][0]['departure'], "", 0, 10)));
@@ -129,14 +137,14 @@ function weatherComposer($currentDay, $day)
             <h2>Donnerstag</h2>
             <h3><?php echo htmlspecialchars($weekdays['Thursday']) ?></h3>
             <p>
-                <?php echo htmlspecialchars(weatherComposer('Thursday', $usermodel[3]));
-                if (isset($usermodel[3])) {
+                <?php echo htmlspecialchars(weatherComposer('Thursday', $userModel[3]));
+                if (isset($userModel[3])) {
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[3]['start'],
-                        $usermodel[3]['destination'],
-                        $usermodel[3]['time']
+                        $userModel[3]['start'],
+                        $userModel[3]['destination'],
+                        $userModel[3]['time']
                     );
                     print_r(htmlspecialchars($response['connections'][0]['from']));
                     print_r(htmlspecialchars(substr_replace($response['connections'][0]['departure'], "", 0, 10)));
@@ -144,20 +152,19 @@ function weatherComposer($currentDay, $day)
                 ?>
             </p>
         </li>
-        <br>
         <li>
             <h2>Freitag</h2>
             <h3><?php echo htmlspecialchars($weekdays['Friday']) ?></h3>
             <p>
                 <?php
-                if (isset($usermodel[4])) {
-                    echo htmlspecialchars(weatherComposer('Friday', $usermodel[4]));
+                if (isset($userModel[4])) {
+                    echo htmlspecialchars(weatherComposer('Friday', $userModel[4]));
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[4]['start'],
-                        $usermodel[4]['destination'],
-                        $usermodel[4]['time']
+                        $userModel[4]['start'],
+                        $userModel[4]['destination'],
+                        $userModel[4]['time']
                     );
                     print_r(htmlspecialchars($response['connections'][0]['from']));
                     print_r(htmlspecialchars(substr_replace($response['connections'][0]['departure'], "", 0, 10)));
@@ -170,14 +177,14 @@ function weatherComposer($currentDay, $day)
             <h3><?php echo htmlspecialchars($weekdays['Saturday']) ?></h3>
             <p>
                 <?php
-                if (isset($usermodel[5])) {
-                    echo htmlspecialchars(weatherComposer('Saturday', $usermodel[5]));
+                if (isset($userModel[5])) {
+                    echo htmlspecialchars(weatherComposer('Saturday', $userModel[5]));
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[5]['start'],
-                        $usermodel[5]['destination'],
-                        $usermodel[5]['time']
+                        $userModel[5]['start'],
+                        $userModel[5]['destination'],
+                        $userModel[5]['time']
                     );
                     print_r(htmlspecialchars($response['connections'][0]['from']));
                     print_r(htmlspecialchars(substr_replace($response['connections'][0]['departure'], "", 0, 10)));
@@ -190,14 +197,14 @@ function weatherComposer($currentDay, $day)
             <h3><?php echo htmlspecialchars($weekdays['Sunday']) ?></h3>
             <p>
                 <?php
-                if (isset($usermodel[6])) {
-                    echo htmlspecialchars(weatherComposer('Sunday', $usermodel[6]));
+                if (isset($userModel[6])) {
+                    echo htmlspecialchars(weatherComposer('Sunday', $userModel[6]));
                     echo "<br>";
                     echo "<br>";
                     $response = getConnection(
-                        $usermodel[6]['start'],
-                        $usermodel[6]['destination'],
-                        $usermodel[6]['time']
+                        $userModel[6]['start'],
+                        $userModel[6]['destination'],
+                        $userModel[6]['time']
                     );
                     if (!isset($response['error'])) {
                         print_r(htmlspecialchars($response['connections'][0]['from']));
