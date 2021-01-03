@@ -1,4 +1,5 @@
 <?php
+include('loggingConfig.php');
 // the current Date is being received and formatted
 $current_date = date('Y-m-d');
 $date = strtotime($current_date);

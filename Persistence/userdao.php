@@ -1,6 +1,7 @@
 <?php
 
 $usermodel = null;
+include('../Business/loggingConfig.php');
 
 function selectFromDB($query, $id)
 {

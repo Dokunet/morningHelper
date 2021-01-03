@@ -2,6 +2,7 @@
 //the session is being used in this file which is why the session is being started
 session_start();
 session_regenerate_id(true);
+include('../Business/loggingConfig.php');
 
 if (!isset($_SESSION['loggedin'])) {
     header("Location: ../index.php");

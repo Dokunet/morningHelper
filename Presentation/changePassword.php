@@ -1,7 +1,9 @@
 <?php
+include('../Business/loggingConfig.php');
 //a mysql connection is being established
 include('../Persistence/dbconnector.inc.php');
 //the session is being used and therby started
+include('../Business/session_timeout.php');
 session_start();
 session_regenerate_id(true);
 

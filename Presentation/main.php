@@ -1,21 +1,26 @@
  <?php
   //enabling the session in this file
+  include('../Business/session_timeout.php');
   session_start();
   session_regenerate_id(true);
 
+    //checking if the user is infact logged in
+    if (!isset($_SESSION['loggedin'])) {
+      header('Location: ../index.php');
+    }
+  
   //including all the necessary files
   include('../Business/dateManager.php');
   include('../Business/clothes.php');
   include('../ApiCalls/weatherApi.php');
   include('../Persistence/userdao.php');
   include('../ApiCalls/commuteApi.php');
+  
 
-  //checking if the user is infact logged in
-  if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.php');
-  }
+  include('../Business/loggingConfig.php');
   //checking if the user has already given some input, if not he will be redirected to de editview file where he inputs some data
   if ($usermodel == null) {
+    $logger->info ('user has no data put in in the $usermodel therefore he is being redirected to de editView.php');
     header('Location: editView.php');
   }
   //calling a function which in response returns information about the current weather
